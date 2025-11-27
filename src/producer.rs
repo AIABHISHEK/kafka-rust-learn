@@ -1,7 +1,7 @@
 use rskafka::{
     client::{
         ClientBuilder, 
-        partition::{Compression, UnknownTopicHandling}, // <--- Added this import
+        partition::{Compression, UnknownTopicHandling}, 
     },
     record::Record,
 };
@@ -21,12 +21,11 @@ async fn main() {
     let topic_name = "docker-topic"; 
     
     // 2. Get a client for Partition 0
-    // FIX: Added 'UnknownTopicHandling::Error' as the 3rd argument
     let partition_client = client
         .partition_client(
             topic_name, 
             0, 
-            UnknownTopicHandling::Error // <--- The Fix
+            UnknownTopicHandling::Error
         )
         .await
         .expect("Failed to find partition");

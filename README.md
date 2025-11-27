@@ -34,3 +34,15 @@ Now type messages in terminal
 ```
   ./kafka-console-consumer.sh --topic test-topic --bootstrap-server localhost:9092 --from-beginning
 ```
+
+
+Now we can we same using rust code to produce and consume messages from the topic 
+7. Produce messages using rust code
+```
+  cargo run --bin producer
+```
+
+8. Consume messages using rust code
+```
+  cargo run --bin consumer
+```

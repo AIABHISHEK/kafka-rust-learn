@@ -18,7 +18,6 @@ async fn main() {
     let topic_name = "docker-topic";
 
     // 2. Setup Partition Client
-    // FIX: Added UnknownTopicHandling::Error
     let partition_client = client
         .partition_client(
             topic_name, 
@@ -35,7 +34,6 @@ async fn main() {
     let mut current_offset = 0; 
 
     loop {
-        // FIX: usage of fetch_records instead of stream
         // Args: (start_offset, min_bytes..max_bytes, max_wait_ms)
         let response = partition_client
             .fetch_records(current_offset, 1..4096, 500) 
@@ -44,12 +42,10 @@ async fn main() {
         match response {
             Ok((records, _high_watermark)) => {
                 for record_data in records {
-                    // Update offset so we don't read the same message twice
+                    // Update offset
                     current_offset = record_data.offset + 1;
 
                     let record = record_data.record;
-
-                    // FIX: Safe decoding of bytes to string
                     let value = match record.value {
                         Some(v) => String::from_utf8_lossy(&v).to_string(),
                         None => "no value".to_string(),
