@@ -1,0 +1,22 @@
+[package]
+name = "kafka-rust-lear"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# The main Kafka library
+rskafka = "0.4"
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+# For logging
+log = "0.4"
+env_logger = "0.10"
+chrono = "0.4"
+
+[[bin]]
+name = "producer"
+path = "src/producer.rs"
+
+[[bin]]
+name = "consumer"
+path = "src/consumer.rs"
